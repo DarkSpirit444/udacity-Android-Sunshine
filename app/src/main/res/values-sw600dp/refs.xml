@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    for more on layout aliases, see:
+    https://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
+    -->
+
+    <!-- Replace fragment detail view with layout that takes advantage of more available width -->
+    <item name="fragment_detail" type="layout">@layout/fragment_detail_wide</item>
+</resources>
