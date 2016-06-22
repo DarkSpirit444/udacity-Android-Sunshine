@@ -299,14 +299,21 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             // If we don't need to restart the loader, and there's a desired position to restore
             // to, do so now.
             mForecastList.smoothScrollToPosition(mPosition);
+
+            // Make sure the selected ListView item is highlighted
             mForecastList.setSelection(mPosition);
             mForecastList.setItemChecked(mPosition, true);
         } else if (!mUseTodayLayout) {
+            // If nothing is selected in two-pane mode, just select the first item in
+            // the listview
             mPosition = 0;
+            mForecastList.setSelection(0);
+
+            // we do a post to workaround the illegalStateException when calling
+            // listview.performItemClick in this method
             mForecastList.post(new Runnable() {
                 @Override
                 public void run() {
-                    mForecastList.setSelection(0);
                     mForecastList.performItemClick(
                                                 mForecastList.getChildAt(0),
                                                 0,
