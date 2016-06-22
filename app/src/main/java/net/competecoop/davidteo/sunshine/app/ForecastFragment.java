@@ -238,7 +238,6 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 //        updateWeather();
 //    }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         getLoaderManager().initLoader(LOADER_ID, null, this);
@@ -300,6 +299,20 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             // If we don't need to restart the loader, and there's a desired position to restore
             // to, do so now.
             mForecastList.smoothScrollToPosition(mPosition);
+            mForecastList.setSelection(mPosition);
+            mForecastList.setItemChecked(mPosition, true);
+        } else if (!mUseTodayLayout) {
+            mPosition = 0;
+            mForecastList.post(new Runnable() {
+                @Override
+                public void run() {
+                    mForecastList.setSelection(0);
+                    mForecastList.performItemClick(
+                                                mForecastList.getChildAt(0),
+                                                0,
+                                                forecastAdapter.getItemId(0));
+                }
+            });
         }
     }
 
