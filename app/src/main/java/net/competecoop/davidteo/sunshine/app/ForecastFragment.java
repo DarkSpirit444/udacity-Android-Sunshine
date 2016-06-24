@@ -304,7 +304,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             // Make sure the selected ListView item is highlighted
             mForecastList.setSelection(mPosition);
             mForecastList.setItemChecked(mPosition, true);
-        } else if (!mUseTodayLayout) {
+        } else if (!mUseTodayLayout && mForecastList.getCount() > 0) {
             // If nothing is selected in two-pane mode, just select the first item in
             // the listview
             mPosition = 0;
