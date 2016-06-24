@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import net.competecoop.davidteo.sunshine.app.data.WeatherContract;
+import net.competecoop.davidteo.sunshine.app.sync.SunshineSyncAdapter;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -329,9 +330,31 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 //        String location = prefs.getString(
 //                getString(R.string.pref_location_key),
 //                getString(R.string.pref_location_default));
-        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
-        String location = Utility.getPreferredLocation(getActivity());
-        weatherTask.execute(location);
+
+//        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
+//        String location = Utility.getPreferredLocation(getActivity());
+//        weatherTask.execute(location);
+
+//        AlarmManager alarmMgr = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+//        Intent intent = new Intent(getContext(), SunshineService.AlarmReceiver.class);
+//        intent.putExtra(
+//                        SunshineService.LOCATION_QUERY_EXTRA,
+//                        Utility.getPreferredLocation(getContext()));
+//
+//        // Wrap in a pending intent which only fires once.
+//        PendingIntent alarmIntent = PendingIntent.getBroadcast(
+//                                                            getContext(),
+//                                                            0,
+//                                                            intent,
+//                                                            PendingIntent.FLAG_ONE_SHOT);
+//
+//        // Set the AlarmManager to wake up the system.
+//        alarmMgr.set(
+//                    AlarmManager.RTC_WAKEUP,
+//                    System.currentTimeMillis() + 5000,
+//                    alarmIntent);
+
+        SunshineSyncAdapter.syncImmediately(getActivity());
     }
 
  /*   public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {

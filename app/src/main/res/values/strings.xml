@@ -46,6 +46,9 @@
     <!-- OWM value for units preference in imperial (CHAR LIMIT=NONE) -->
     <string name="pref_units_imperial">imperial</string>
 
+    <!-- OWM value for units preference (CHAR LIMIT=NONE) -->
+    <string name="pref_units_default">imperial</string>
+
     <!-- Key name for storing units in SharedPreferences (CHAR LIMIT=NONE) -->
     <string name="pref_units_key" translatable="false">units</string>
 
@@ -76,4 +79,9 @@
 
     <!-- Humidity format CHAR LIMIT=25]-->
     <string name="format_humidity">Humidity: <xliff:g id="humidity">%1.0f</xliff:g> %%</string>
+
+    <!-- Account type (for sync-adapter authenticator) -->
+    <!-- SyncAdapter related -->
+    <string name="sync_account_type">sunshine.davidteo.competecoop.net</string>
+    <string name="content_authority">net.competecoop.davidteo.sunshine.app</string>
 </resources>

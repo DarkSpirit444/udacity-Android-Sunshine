@@ -13,6 +13,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/build/intermediates/bundles/debug/instant-run/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/example/android/sunshine/app/FullTestSuite.java">
           <value>
             <set />
@@ -144,6 +154,31 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/net/competecoop/davidteo/sunshine/app/data/WeatherProvider.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/competecoop/davidteo/sunshine/app/service/SunshineService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/competecoop/davidteo/sunshine/app/sync/SunshineAuthenticator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/competecoop/davidteo/sunshine/app/sync/SunshineAuthenticatorService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/competecoop/davidteo/sunshine/app/sync/SunshineSyncAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/competecoop/davidteo/sunshine/app/sync/SunshineSyncService.java">
           <value>
             <set />
           </value>

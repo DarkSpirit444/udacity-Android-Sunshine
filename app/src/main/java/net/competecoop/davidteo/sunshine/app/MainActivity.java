@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import net.competecoop.davidteo.sunshine.app.sync.SunshineSyncAdapter;
+
 
 public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback {
 
@@ -29,7 +31,7 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
 //                    .commit();
 //        }
 
-//        location = Utility.getPreferredLocation(this);
+        location = Utility.getPreferredLocation(this);
         isMetric = Utility.isMetric(this);
 
         if (findViewById(R.id.weather_detail_container) != null) {
@@ -53,6 +55,8 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         ForecastFragment ff = (ForecastFragment)getSupportFragmentManager()
                                                     .findFragmentById(R.id.fragment_forecast);
         ff.setUseTodayLayout(!twoPane);
+
+        SunshineSyncAdapter.initializeSyncAdapter(this);
     }
 
     @Override
