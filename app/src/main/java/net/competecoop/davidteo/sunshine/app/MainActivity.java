@@ -127,38 +127,9 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
             startActivity(startSettingsActivity);
             return true;
-        } else if (id == R.id.action_map) {
-            openPreferredLocationInMap();
-            return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-
-    private void openPreferredLocationInMap() {
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        String zipCode = prefs.getString(
-//                getString(R.string.pref_location_key),
-//                getString(R.string.pref_location_default));
-        String zipCode = Utility.getPreferredLocation(this);
-
-        // Using the URI scheme for showing a location found on
-        // intent can be detailed in the "Common Intents" page
-        // http://developer.android.com/guide/components/intents-common.html#Maps
-        Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
-                .appendQueryParameter("q", zipCode)
-                .build();
-
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW);
-        mapIntent.setData(geoLocation);
-
-        if (mapIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(mapIntent);
-        } else {
-            Log.d(LOG_TAG, "Couldn't call " + zipCode + ", no location app!");
-        }
     }
 
     @Override
