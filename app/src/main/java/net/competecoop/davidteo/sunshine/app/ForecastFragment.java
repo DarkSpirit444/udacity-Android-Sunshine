@@ -5,9 +5,11 @@ package net.competecoop.davidteo.sunshine.app;
  */
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -22,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import net.competecoop.davidteo.sunshine.app.data.WeatherContract;
 import net.competecoop.davidteo.sunshine.app.sync.SunshineSyncAdapter;
@@ -29,7 +32,8 @@ import net.competecoop.davidteo.sunshine.app.sync.SunshineSyncAdapter;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String[] FORECAST_COLUMNS = {
             // In this case the id needs to be fully qualified with a table name, since
@@ -142,6 +146,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
         // Get reference to ListView
         mForecastList = (ListView) rootView.findViewById(R.id.listview_forecast);
+        mForecastList.setEmptyView(rootView.findViewById(R.id.listview_forecast_empty));
 
         // Set the Adapter to the ListView
         mForecastList.setAdapter(forecastAdapter);
@@ -247,6 +252,20 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 //    }
 
     @Override
+    public void onResume() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        sp.registerOnSharedPreferenceChangeListener(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        sp.unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         getLoaderManager().initLoader(LOADER_ID, null, this);
         super.onActivityCreated(savedInstanceState);
@@ -328,6 +347,48 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
                                                 forecastAdapter.getItemId(0));
                 }
             });
+        }
+
+        updateEmptyView();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.pref_location_status_key))) {
+            updateEmptyView();
+        }
+    }
+
+    /**
+     * Updates the empty list view with contextually relevant information that the user can
+     * use to determine why they aren't seeing weather.
+     */
+    private void updateEmptyView() {
+        if (forecastAdapter.getCount() == 0) {
+            TextView tv = (TextView) getView().findViewById(R.id.listview_forecast_empty);
+            if (null != tv) {
+                // If cursor is empty, why? do we have an invalid location
+                int message =R.string.empty_forecast_list;
+                @SunshineSyncAdapter.LocationStatus int location =
+                                                        Utility.getLocationStatus(getContext());
+                switch(location) {
+                    case SunshineSyncAdapter.LOCATION_STATUS_SERVER_DOWN:
+                        message = R.string.empty_forecast_list_server_down;
+                        break;
+                    case SunshineSyncAdapter.LOCATION_STATUS_SERVER_INVALID:
+                        message = R.string.empty_forecast_list_server_error;
+                        break;
+                    case SunshineSyncAdapter.LOCATION_STATUS_INVALID:
+                        message = R.string.empty_forecast_list_invalid_location;
+                        break;
+                    default:
+                        if (!Utility.isNetworkAvailable(getContext())) {
+                            message = R.string.empty_forecast_list_no_network;
+                        }
+                }
+
+                tv.setText(message);
+            }
         }
     }
 

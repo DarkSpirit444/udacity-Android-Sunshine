@@ -13,6 +13,10 @@
     <uses-permission
         android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
 
+    <!-- Permissions required to make our UI more friendly -->
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -64,10 +68,14 @@
             android:syncable="true" />
 
         <!-- The SyncAdapter service -->
+        <!--<service-->
+            <!--android:name=".sync.SunshineSyncService"-->
+            <!--android:exported="true"-->
+            <!--android:process=":sync"-->
+            <!--&gt;-->
         <service
             android:name=".sync.SunshineSyncService"
             android:exported="true"
-            android:process=":sync"
             >
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
